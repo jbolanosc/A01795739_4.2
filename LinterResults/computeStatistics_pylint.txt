@@ -1,0 +1,10 @@
+************* Module computeStatistics
+computeStatistics.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+computeStatistics.py:1:0: C0103: Module name "computeStatistics" doesn't conform to snake_case naming style (invalid-name)
+computeStatistics.py:16:13: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+computeStatistics.py:40:4: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+computeStatistics.py:76:9: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+
+------------------------------------------------------------------
+Your code has been rated at 9.34/10 (previous run: 9.13/10, +0.21)
+
