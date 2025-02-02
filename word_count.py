@@ -1,3 +1,16 @@
+"""
+Module: word_count
+This script reads a file containing words,
+counts the frequency of each unique word,
+and writes the results to an output file while handling errors.
+
+Features:
+- Reads a file containing words separated by spaces.
+- Counts the occurrences of each distinct word.
+- Handles invalid data gracefully.
+- Saves results to 'WordCountResults.txt'.
+- Displays execution time at the end.
+"""
 import sys
 import time
 import os
@@ -19,8 +32,14 @@ def read_words_from_file(filename):
     except FileNotFoundError:
         print(f"Error: File '{filepath}' not found.")
         sys.exit(1)
-    except Exception as e:
-        print(f"Error reading file: {e}")
+    except PermissionError:
+        print(f"Error: Permission denied for file '{filepath}'.")
+        sys.exit(1)
+    except IsADirectoryError:
+        print(f"Error: Expected a file but found a directory: '{filepath}'")
+        sys.exit(1)
+    except OSError as os_ex:
+        print(f"Error reading file: {os_ex}")
         sys.exit(1)
     return words
 
@@ -63,7 +82,8 @@ def main():
     for word, count in sorted(word_frequencies.items()):
         print(f"{word}: {count}")
     elapsed_time = time.time() - start_time
-    write_results_to_file(word_frequencies, elapsed_time)
+    elapsed_str = f"Elapsed Time (seconds): {elapsed_time}"
+    write_results_to_file(word_frequencies, elapsed_str)
     print(f"Elapsed Time (seconds): {elapsed_time}")
 
 

@@ -45,8 +45,7 @@ def compute_median(numbers):
     mid = item // 2
     if item % 2 == 0:
         return (sorted_numbers[mid - 1] + sorted_numbers[mid]) / 2
-    else:
-        return sorted_numbers[mid]
+    return sorted_numbers[mid]
 
 
 def compute_mode(numbers):

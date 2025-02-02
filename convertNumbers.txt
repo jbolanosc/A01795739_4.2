@@ -1,2 +1,0 @@
-Elapsed Time (seconds): 0.0006430149078369141
-Elapsed Time (seconds): 0.0006592273712158203

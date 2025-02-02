@@ -1,3 +1,16 @@
+"""
+Module: convert_numbers
+This script reads a file containing numbers,
+converts them to binary and hexadecimal,
+and writes the results to an output file while handling errors.
+
+Features:
+- Reads a file with numbers.
+- Converts numbers to binary and hexadecimal using basic algorithms.
+- Handles invalid data gracefully.
+- Saves results to 'ConvertionResults.txt'.
+- Displays execution time at the end.
+"""
 import sys
 import time
 import os
@@ -13,7 +26,7 @@ def read_numbers_from_file(filename):
     os.makedirs(directory, exist_ok=True)
     filepath = os.path.join(directory, filename)
     try:
-        with open(filepath, 'r') as file:
+        with open(filepath, 'r', encoding='utf-8') as file:
             for line in file:
                 try:
                     number = int(line.strip())
@@ -31,10 +44,10 @@ def convert_to_binary(number):
     if number == 0:
         return "0"
     binary = ""
-    n = number
-    while n > 0:
-        binary = str(n % 2) + binary
-        n //= 2
+    item = number
+    while item > 0:
+        binary = str(item % 2) + binary
+        item //= 2
     return binary
 
 
@@ -44,11 +57,11 @@ def convert_to_hexadecimal(number):
     if number == 0:
         return "0"
     hexadecimal = ""
-    n = number
-    while n > 0:
-        remainder = n % 16
+    item = number
+    while item > 0:
+        remainder = item % 16
         hexadecimal = hex_chars[remainder] + hexadecimal
-        n //= 16
+        item //= 16
     return hexadecimal
 
 
@@ -58,7 +71,7 @@ def write_results_to_file(results):
     directory = os.path.join(os.getcwd(), "ScriptResults")
     os.makedirs(directory, exist_ok=True)
     filepath = os.path.join(directory, "convertNumbersResults.txt")
-    with open(filepath, 'w') as file:
+    with open(filepath, 'w', encoding='utf-8') as file:
         for number, binary, hexadecimal in results:
             file.write(f"""{number}: Binary={binary},
                        Hexadecimal={hexadecimal}\n""")
@@ -82,11 +95,10 @@ def main():
         hexadecimal = convert_to_hexadecimal(number)
         results.append((number, binary, hexadecimal))
         print(f"{number}: Binary={binary}, Hexadecimal={hexadecimal}")
-    write_results_to_file(results)
     elapsed_time = time.time() - start_time
     print(f"Elapsed Time (seconds): {elapsed_time}")
-    with open("convertNumbers.txt", 'a') as file:
-        file.write(f"Elapsed Time (seconds): {elapsed_time}\n")
+    results.append(f"Elapsed Time (seconds): {elapsed_time}")
+    write_results_to_file(results)
 
 
 if __name__ == "__main__":
