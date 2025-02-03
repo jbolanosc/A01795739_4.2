@@ -69,7 +69,7 @@ def write_results_to_file(results, output_file, elapsed_time, tc_name):
             file.write("TC\tNumber\tBinary\tHexadecimal\tElapsed Time (s)\n")
         for test, number, binary, hexadecimal in results:
             file.write(f"{test}\t{number}\t{binary}\t{hexadecimal}\n")
-        file.write(f"{tc_name}\t-\t-\t-\t{elapsed_time:.6f}\n")
+        file.write(f"{tc_name}\t-\tElapsed time\t-\t{elapsed_time:.6f}\n")
     print(f"Results appended to {output_file}")
 
 
