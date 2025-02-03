@@ -36,7 +36,7 @@ def count_word_frequencies(words):
     """Counts the frequency of each distinct word in the list."""
     word_count = {}
     for word in words:
-        word = word.lower().strip(".,!?()[]{}:;\"'")  # Basic cleanup
+        word = word.lower().strip(".,!?()[]{}:;\"'")  # Sanitize
         if word:
             word_count[word] = word_count.get(word, 0) + 1
     return word_count

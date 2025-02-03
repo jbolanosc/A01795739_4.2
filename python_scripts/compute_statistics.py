@@ -30,12 +30,12 @@ def read_file_information(filepath):
 
 
 def compute_mean(numbers):
-    """Computes the mean (average) manually."""
+    """Computes the mean (average)"""
     return sum(numbers) / len(numbers) if numbers else 0
 
 
 def compute_median(numbers):
-    """Computes the median manually."""
+    """Computes the median"""
     sorted_numbers = sorted(numbers)
     length = len(sorted_numbers)
     mid = length // 2
@@ -45,7 +45,7 @@ def compute_median(numbers):
 
 
 def compute_mode(numbers):
-    """Computes the mode manually."""
+    """Computes the mode"""
     frequency = {}
     for num in numbers:
         frequency[num] = frequency.get(num, 0) + 1
@@ -63,13 +63,13 @@ def compute_variance(numbers, mean):
 
 
 def compute_standard_deviation(variance):
-    """Computes standard deviation manually."""
+    """Computes standard deviation"""
     return variance ** 0.5
 
 
 def compute_statistics(numbers):
     """
-    Computes mean, median, mode, variance, and standard deviation manually.
+    Computes mean, median, mode, variance, and standard deviation.
     """
     if not numbers:
         return {
@@ -108,7 +108,7 @@ def write_results_to_file(results, output_file, elapsed_time, tc_name):
 
 
 def main():
-    """Main function to compute statistics for multiple files."""
+    """Main function to compute statistics for multiple files if needed."""
     if len(sys.argv) != 3:
         print(
             "Usage: python compute_statistics.py "
