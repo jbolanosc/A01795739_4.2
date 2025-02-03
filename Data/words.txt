@@ -1,6 +1,0 @@
-Hello world! This is a test file.
-This file contains words, words, and more words.
-Some words are repeated, and some are unique.
-Hello again! Let's count the words in this file.
-This should work correctly, handling punctuation and case differences.
-HELLO world hello World!

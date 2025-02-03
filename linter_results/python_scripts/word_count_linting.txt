@@ -1,0 +1,7 @@
+=== FLAKE8 REPORT for ./python_scripts/word_count.py ===
+
+=== PYLINT REPORT for ./python_scripts/word_count.py ===
+
+--------------------------------------------------------------------
+Your code has been rated at 10.00/10 (previous run: 10.00/10, +0.00)
+

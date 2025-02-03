@@ -1,18 +1,18 @@
 #!/bin/bash
 
 # Create the LinterResults directory if it doesn't exist
-mkdir -p LinterResults
+mkdir -p linter_results
 
 # Loop through all Python files in the current directory
-for script in *.py; do
+for script in ./python_scripts/*.py; do
     if [[ -f "$script" ]]; then
         # Extract filename without extension
         script_name="${script%.py}"
         
         # Define output file paths
-        flake8_report="LinterResults/${script_name}_flake8.txt"
-        pylint_report="LinterResults/${script_name}_pylint.txt"
-        combined_report="LinterResults/${script_name}_linting.txt"
+        flake8_report="linter_results/${script_name}_flake8.txt"
+        pylint_report="linter_results/${script_name}_pylint.txt"
+        combined_report="linter_results/${script_name}_linting.txt"
 
         echo "=== Running Flake8 on $script ==="
         flake8 "$script" --output-file="$flake8_report"
