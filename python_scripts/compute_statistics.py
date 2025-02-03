@@ -15,6 +15,7 @@ def read_file_information(filepath):
     Returns a list of valid numbers.
     """
     numbers = []
+    invalid_count = 0
     try:
         with open(filepath, "r", encoding='utf-8') as file:
             for line in file:
@@ -22,10 +23,12 @@ def read_file_information(filepath):
                     number = float(line.strip())
                     numbers.append(number)
                 except ValueError:
-                    print(f"Invalid data found and ignored: {line.strip()}")
+                    invalid_count += 1
     except FileNotFoundError:
         print(f"Error: File '{filepath}' not found.")
         return []
+    print(f"Total valores procesados: {len(numbers)}")
+    print(f"Valores inválidos ignorados: {invalid_count}")
     return numbers
 
 
@@ -55,11 +58,11 @@ def compute_mode(numbers):
 
 
 def compute_variance(numbers, mean):
-    """Computes population variance."""
-    if not numbers:
-        return None
+    """Computes sample variance."""
+    if len(numbers) < 2:
+        return 0
     diff_squared = [(x - mean) ** 2 for x in numbers]
-    return sum(diff_squared) / len(numbers)
+    return sum(diff_squared) / (len(numbers) - 1)
 
 
 def compute_standard_deviation(variance):
@@ -76,16 +79,18 @@ def compute_statistics(numbers):
             "COUNT": 0, "MEAN": None, "MEDIAN": None,
             "MODE": None, "SD": None, "VARIANCE": None
         }
-    mean = compute_mean(numbers)
+    scale_factor = 1e18
+    numbers_scaled = [x / scale_factor for x in numbers]
+    mean = compute_mean(numbers_scaled)
+    variance = compute_variance(numbers_scaled, mean)
     return {
         "COUNT": len(numbers),
-        "MEAN": mean,
-        "MEDIAN": compute_median(numbers),
-        "MODE": compute_mode(numbers),
-        "SD": compute_standard_deviation(
-            compute_variance(numbers, mean)
-        ),
-        "VARIANCE": compute_variance(numbers, mean)
+        "MEAN": mean * scale_factor,
+        "MEDIAN": compute_median(numbers_scaled) * scale_factor,
+        "MODE": compute_mode(numbers_scaled) * scale_factor if
+        isinstance(compute_mode(numbers_scaled), (int, float)) else "#N/A",
+        "SD": compute_standard_deviation(variance) * scale_factor,
+        "VARIANCE": variance * (scale_factor ** 2)
     }
 
 
@@ -95,13 +100,13 @@ def write_results_to_file(results, output_file, elapsed_time, tc_name):
     with open(output_file, 'a', encoding='utf-8') as file:
         if not file_exists:
             file.write(
-                "TC\tCOUNT\tMEAN\tMEDIAN\tMODE\tSD\tVARIANCE\t"
-                "Elapsed Time (s)\n"
+                """TC\tCOUNT\tMEAN\tMEDIAN\tMODE\t
+                SD\tVARIANCE\tElapsed Time (s)\n"""
             )
         file.write(
-            f"{tc_name}\t{results['COUNT']}\t{results['MEAN']}\t"
-            f"{results['MEDIAN']}\t{results['MODE']}\t"
-            f"{results['SD']}\t{results['VARIANCE']}\t"
+            f"{tc_name}\t{results['COUNT']}\t{results['MEAN']:.2f}\t"
+            f"{results['MEDIAN']:.2f}\t{results['MODE']}\t"
+            f"{results['SD']:.2f}\t{results['VARIANCE']:.2f}\t"
             f"{elapsed_time:.6f}\n"
         )
     print(f"Results appended to {output_file}")
